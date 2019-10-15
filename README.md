@@ -29,5 +29,5 @@ Data = Kijiji(init_url, num_pages).data
 Data_table Real_Estate_Listingsdb(host, user, psswrd, db_name, table_name)
 
 # Writing raw web data to the specified MySQL table:
-Data_table.update_Kijiji()
+Data_table.update_Kijiji(Data)
 ```
