@@ -6,7 +6,7 @@ This is a data pipeline designed to facilitate the creation and maintanence of a
 The Pipeline is written mainly in python with packages such as MySQLdb being used to connect to a MySQL server and execute SQL commands.
 
 The three main processes of this ETL pipeline are described below:
-- ### Extract
+- ### [Extract](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/README.md#extract-1)
 - ### Transform
 - ### Load
 
