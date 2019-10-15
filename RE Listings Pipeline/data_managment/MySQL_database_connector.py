@@ -97,12 +97,19 @@ Size TEXT )" % self.table_name)
 
 
         # Adding all rows of unique_df to the SQL database:
-        
-        # TODO: Write code that Inserts unique_df into the MySQL table.
+        for index, row in unique_df.iterrows():
+
+            # building SQL execute string:
+            add_row = "INSERT INTO %s (Address, Price, Date, Bedrooms, Bathrooms, Size)\
+VALUES ('%s', '%s', '%s', '%s', '%s', '%s')" % (self.table_name, row['Address'], row['Price'],
+row['Date'], row['Bedrooms'], row['Bathrooms'], row['Size'])
+
+            # Executing SQL command:
+            self.cur.execute(add_row)
 
 
+        # Comming entries to database:
+        self.db.commit()
 
-# For Testing:
-single_page = Kijiji('https://www.kijiji.ca/b-house-for-sale/gta-greater-toronto-area/c35l1700272', 1).data
-Test = Real_Estate_Listingsdb('localhost', 'Python_ETL_connector',
- 'q$.)dzFQGeZaK6c', 're_listings_data', 'main_listings_tbl').update_Kijiji(single_page)
+        # Closing connection:
+        self.db.close()
