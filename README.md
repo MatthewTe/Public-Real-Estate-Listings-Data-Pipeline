@@ -13,7 +13,7 @@ The three main processes of this ETL pipeline are described below:
 ## Extract
 The extraction of raw RE listings data is done via the use of various web based data models that scrape their respective websites for listings data. A description of these data models can be found [here](https://github.com/MatthewTe/ETL-Data-Models). 
 
-Once data is scraped from the web, it is then input into a [MySQL database python object](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/RE%20Listings%20Pipeline/Raw_data_extraction/MySQL_database_connector.py) as a pandas dataframe. This dataframe is then processed to ensure that it only contains data that is unique to the SQL database and read into the appropriate MySQL table. The execution processes of collecting data from the web and storing it in an SQL table is as follows:
+Once data is scraped from the web, it is then input into a [MySQL database python object](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/RE_Listings_Pipeline/data_extraction/MySQL_database_connector.py) as a pandas dataframe. This dataframe is then processed to ensure that it only contains data that is unique to the SQL database and read into the appropriate MySQL table. The execution processes of collecting data from the web and storing it in an SQL table is as follows:
 
 ```python
 
