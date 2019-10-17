@@ -1,9 +1,12 @@
+# Package sys.path hack:
+import sys
+sys.path.append("..")
 # Importing MySQL database connector packages:
 import MySQLdb
 # Importing data managment packages:
 import pandas as pd
-# Importing web data models:
-from web_data_models import Kijiji
+# Importing web data models: # NOTE: hack requiring absoloute import:
+from RE_Listings_Pipeline.data_extraction_pkg.web_data_models import Kijiji
 
 class Real_Estate_Listingsdb(object):
     '''

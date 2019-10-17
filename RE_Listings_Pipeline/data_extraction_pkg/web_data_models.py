@@ -1,3 +1,7 @@
+# Package sys.path hack:
+import sys
+sys.path.append("..")
+
 # Importing scraping packages:
 import bs4
 import requests
