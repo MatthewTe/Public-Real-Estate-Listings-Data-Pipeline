@@ -7,7 +7,7 @@ The Pipeline is written mainly in python with packages such as MySQLdb being use
 
 The three main processes of this ETL pipeline are described below:
 - ### [Extract](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/README.md#extract-1)
-- ### Transform
+- ### [Transform](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/README.md#transform-1)
 - ### Load
 
 ## Extract
