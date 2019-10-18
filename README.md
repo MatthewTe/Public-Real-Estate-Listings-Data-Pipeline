@@ -33,5 +33,5 @@ Data_table.update_Kijiji(Data)
 ```
 The raw data is stored in the sql database in the following schema:
 | Address| Price | Date           | Bedrooms        |Bathrooms       | Size           |
-| -------| ----- | --------------| -----------------|----------------|----------------|
-| String | String| String | String | String | String |
+| -------| ----- | -------------- | ----------------|----------------|----------------|
+| Text   | Text  | Text           | Text            | Text           | Text           |
