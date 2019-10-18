@@ -42,9 +42,9 @@ Raw data stored in the SQL database extracted by the web data models is read fro
 
 The Geoprocessor, in this case powered by the OpenCage geolocator's api then converts the address to a tuple of (lattitude, longnitude). This data is then stored as a tuple in an additional column. The finaly data transformation converts data types away from strings to the following schema:
 
-|Address|Price|Date|Bedrooms|Bathrooms|Size |
-|-------|-----|----|--------|---------|-----|
-|Text   |Float|Date|Float   |Float    |Float|
+|Address|Price|Date|Bedrooms|Bathrooms|Size |Coordinates|
+|-------|-----|----|--------|---------|-----|-----------|
+|Text   |Float|Date|Float   |Float    |Float|Text       |
 
 The execution of extracting raw data from the SQL database and transforming it is as follows:
 ```python
