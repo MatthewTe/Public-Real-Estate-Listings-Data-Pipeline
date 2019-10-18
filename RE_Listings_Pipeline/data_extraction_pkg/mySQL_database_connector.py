@@ -50,22 +50,6 @@ class Real_Estate_Listingsdb(object):
         # Instance cursor variable:
         self.cur = self.db.cursor()
 
-
-        # Creating the necessary listings table within the database if it does
-        # not exist: # NOTE: Assumes database already exists.
-
-        # Declaring the CREATE TALBE IF NOT EXIST SQL command string:
-        createtbl_cmd = ("CREATE TABLE IF NOT EXISTS %s (\
-Address TEXT (250) ,\
-Price TEXT,\
-Date TEXT,\
-Bedrooms TEXT,\
-Bathrooms TEXT,\
-Size TEXT )" % self.table_name)
-
-        # Executing the create table command:
-        self.cur.execute(createtbl_cmd)
-
     def update_Kijiji(self, Kijiji_object):
         '''This is the main method that will be used to maintain the RE listings
         database. It accepts a Kijiji().data object as input and updates the
@@ -116,3 +100,45 @@ row['Date'], row['Bedrooms'], row['Bathrooms'], row['Size'])
 
         # Closing connection:
         self.db.close()
+
+    def read_data(self, num_rows):
+        '''This method queries the MySQL server and extracts data from the
+        data table specified by the Real_Estate_Listingsdb() __init__ method
+        based on the number of rows specified
+
+        Parameters
+        ----------
+        num_rows : int
+            The integer specifying the number of rows that will be queried from
+            the SQL table
+
+        Returns
+        -------
+        df : pandas dataframe
+            This is the dataframe containing the data queried from the SQL
+            database
+        '''
+
+        # Constructing SQL query string:
+        query_string = 'SELECT * FROM %s LIMIT %d' % (self.table_name, num_rows)
+
+        # Converting the SQL query into a dataframe:
+        df = pd.read_sql(query_string, con= self.db)
+
+
+        return df
+
+    def update_transformtbl(self, data):
+        '''This method is used to update the SQL table containing the raw data
+        after it has been transformed via the geoprocessing package.
+
+        Parameters
+        ----------
+        data : pandas dataframe
+            This dataframe contains the end reuslt of the data transformation
+            process
+
+        '''
+
+        # pushing pandas data table to the SQL database:
+        data.to_sql(name=self.table_name, con=self.db, if_exists='append')
