@@ -31,6 +31,10 @@ class data_transform(object):
         This is the api key that will be used to access the geocoder api to perform
         the geoprocessing data. For the moment this method uses the geocoder api
         OpenCage
+
+    Raises
+    ------
+    SettingWithCopyWarning : pandas warning for set a df slice as a dataframe.
     """
 
     def __init__(self, raw_data, api_key):
