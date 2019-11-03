@@ -75,6 +75,9 @@ transform_tbl = MySQLdb(host, user, pswrd, db_name, table_name) # Creating new c
 transform_tbl.update_transformtbl(transformed_data)
 ```
 
+## Load
+The main script currently called pipeline.py ties together all of the methods from the data extraction and data transformation packagesin the project. It calls on these processes to continually updatae and maintain the database by extracting raw data, transforming said data and finally loading it into the main Real Estate listings database. The process flow diagram for the script pipeline.py can be found below:
+
 
 
 
