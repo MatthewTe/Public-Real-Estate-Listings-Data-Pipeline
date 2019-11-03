@@ -78,7 +78,7 @@ transform_tbl.update_transformtbl(transformed_data)
 ## Load
 The main script currently called pipeline.py ties together all of the methods from the data extraction and data transformation packagesin the project. It calls on these processes to continually updatae and maintain the database by extracting raw data, transforming said data and finally loading it into the main Real Estate listings database. The process flow diagram for the script pipeline.py can be found below:
 
-
+[Image Not Found](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/Process_flow_diagram.png)
 
 
 
