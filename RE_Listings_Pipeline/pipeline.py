@@ -38,7 +38,7 @@ class pipeline(object):
         self.db_parms = db_parms
 
         # Constructing table: names:
-        self.rawtbl_name = city + '_raw_tbl'
+        self.rawtbl_name = city + '_rawtbl'
         self.maintbl_name = city + '_maintbl'
 
         # Initalizing connection with the database for raw data:
@@ -76,14 +76,51 @@ Coordinates TEXT)".format(self.maintbl_name)
         # Executing command:
         self.cur.execute(createtbl_query)
 
-    # TODO: Physically Map out what this method does currently
+    def tbl_update(self, num_pages, api_key):
+        '''This method utilizes the Kijiji data models and the data_extraction_pkg
+        to update and maintain the raw data table for the specified Kijiji listings
+        pipeline.
 
-    # TODO: Create a method that maintains the database, updating it a certain number of times.
+        It then uses the same data extracted form the Kijiji data model and
+        processes it using the geoprocessing package. It then writes the processed
+        data into the SQL database into the maintbl.
 
-    
+        Parameters
+        ----------
+        num_pages : int
+            The number of listings pages that will be used to update the
+            database based on the inital Kijiji url.
 
+        api_key : str
+            This is the API key that will be used to acess the online geoprocessor
+            for the raw data.
+        '''
+
+        # Creating dataframe containing all Kijiji listings from Kijiji data model:
+        Kijiji_data_model = Kijiji(self.url, num_pages)
+
+        # Placing the dataframe into the data_extraction_pkg:
+        raw_listings_db = mySQLdb(self.db_parms['host'], self.db_parms['user'],
+         self.db_parms['passwd'], db_parms['db_name'], self.rawtbl_name)
+
+        # Updating rawtbl listings data with data scraped by Kijiji data model:
+        raw_listings_db.update_Kijiji(Kijiji_data_model.data)
+
+        # Creating database connection for the main data tbl:
+        main_listings_tbl = mySQLdb(self.db_parms['host'], self.db_parms['user'],
+         self.db_parms['passwd'], db_parms['db_name'], self.maintbl_name)
+
+
+        # Inputting the scraped data model into the geoprocessor:
+        main_table = data_transform(Kijiji_data_model.data, api_key)
+
+
+        # Writing the geoprocessed data into the main data table:
+        main_listings_tbl.update_transformtbl(main_table.data)
 
 
 # Test:
 db_parms = {'host': 'localhost', 'user': 'Main_User', 'passwd': '', 'db_name': 're_listings_data'}
-pipeline('Toronto', 'https://www.kijiji.ca/b-house-for-sale/gta-greater-toronto-area/c35l1700272?ll=', db_parms)
+test = pipeline('Waterloo_ON', 'https://www.kijiji.ca/b-house-for-sale/kitchener-waterloo/c35l1700212', db_parms)
+
+test.tbl_update(1, '64aec27dd2e34dfaa3b5296eed4acc20')

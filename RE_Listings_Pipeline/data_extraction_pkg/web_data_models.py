@@ -123,8 +123,8 @@ class Kijiji(object):
         for listing in listings:
 
             # parse each individual listing for the listing's href and date:
-            # <a class = 'title enable-search-navigation-flag'>
-            listing_href = listing.findAll('a',{'class': 'title enable-search-navigation-flag'})[0]['href']
+            # <a class = 'title'>
+            listing_href = listing.findAll('a',{'class': 'title'})[0]['href']
             # building url to main listings page:
             listing_url = 'https://www.kijiji.ca' + listing_href
 
@@ -212,17 +212,17 @@ class Kijiji(object):
         try:
             Bedrooms = attributes_dict['Bedrooms']
         except:
-            Bedrooms = 'NaN'
+            Bedrooms = 'NULL'
 
         try:
             Bathrooms = attributes_dict['Bathrooms']
         except:
-            Bathrooms = 'NaN'
+            Bathrooms = 'NULL'
 
         try:
             Size = attributes_dict['Size (sqft)'].replace(',', '')
         except:
-            Size = 'NaN'
+            Size = 'NULL'
 
         # Declaring date_posed as a dummy variable to be overwritten later in the
         # data model:

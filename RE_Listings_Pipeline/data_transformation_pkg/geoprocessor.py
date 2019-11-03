@@ -81,6 +81,8 @@ class data_transform(object):
 
         # replacing every instance of 'NaN' with "0" and 'Please Contact' with 'NaN':
         df.replace(to_replace='NaN', value='0')
+        df.replace(to_replace='NULL', value='0')
+
 
         # Removing rows where there is no price listed:
         df = df[df.Price != 'Please Contact']
@@ -89,7 +91,6 @@ class data_transform(object):
         df.Price = df.Price.astype(float).fillna(0.0)
         df.Bedrooms = df.Bedrooms.astype(float).fillna(0.0)
         df.Bathrooms = df.Bathrooms.astype(float).fillna(0.0)
-        df.Size = df.Size.astype(float).fillna(0.0)
 
 
         return df

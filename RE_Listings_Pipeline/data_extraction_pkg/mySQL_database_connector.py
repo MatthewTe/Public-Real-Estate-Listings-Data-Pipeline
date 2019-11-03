@@ -87,9 +87,13 @@ class Real_Estate_Listingsdb(object):
         for index, row in unique_df.iterrows():
 
             # building SQL execute string:
-            add_row = "INSERT INTO %s (Address, Price, Date, Bedrooms, Bathrooms, Size)\
-VALUES ('%s', '%s', '%s', '%s', '%s', '%s')" % (self.table_name, row['Address'], row['Price'],
-row['Date'], row['Bedrooms'], row['Bathrooms'], row['Size'])
+            add_row = """INSERT INTO %s (Address, Price, Date, Bedrooms, Bathrooms, Size)\
+ VALUES ( "{}", "{}", "{}", "{}", "{}", "{}" )""" % (self.table_name)
+
+
+            add_row = add_row.format(row['Address'], row['Price'], row['Date'],
+            row['Bedrooms'], row['Bathrooms'], row['Size'])
+
 
             # Executing SQL command:
             self.cur.execute(add_row)
@@ -140,5 +144,40 @@ row['Date'], row['Bedrooms'], row['Bathrooms'], row['Size'])
 
         '''
 
-        # pushing pandas data table to the SQL database:
-        data.to_sql(name=self.table_name, con=self.db, if_exists='append')
+        # Declaring the input data as update_df:
+        update_df = data
+
+        # Extracting and building a dataframe from all current data in the
+        # 'main_listings_tbl' table:
+        main_db_dataframe = pd.read_sql('SELECT * FROM %s' % self.table_name
+        , con=self.db)
+
+        # Merging the main SQL database with the current Kijiji scraped database:
+        interim_df = pd.concat([main_db_dataframe, update_df], ignore_index=True)
+
+        # Selecting only the unique valeus within the dataframe:
+        unique_df = interim_df.drop_duplicates()
+
+
+        # Adding all rows of unique_df to the SQL database:
+        for index, row in unique_df.iterrows():
+
+            # building SQL execute string:
+            add_row = """INSERT INTO %s (Address, Price, Date, Bedrooms,\
+Bathrooms, Size, Coordinates)
+VALUES ( "{}", {}, "{}", {}, {}, {}, "{}" )""" % (self.table_name)
+
+
+            add_row = add_row.format(row['Address'], row['Price'], row['Date'],
+            row['Bedrooms'], row['Bathrooms'], row['Size'], row['Coordinates'])
+
+
+            # Executing SQL command:
+            self.cur.execute(add_row)
+
+
+        # Comming entries to database:
+        self.db.commit()
+
+        # Closing connection:
+        self.db.close()
