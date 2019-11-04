@@ -28,7 +28,11 @@ class pipeline(object):
 
     db_parms : dict
         This is a dictionary containing all the connection information for the
-        online database service that is being used to read and write data.
+        online database service that is being used to read and write data. The
+        structure of the db_parms dictionary is:
+
+        {'host', 'user', 'passwd', 'db_name'}
+
     """
 
     def __init__(self, city, url, db_parms):
@@ -117,10 +121,3 @@ Coordinates TEXT)".format(self.maintbl_name)
 
         # Writing the geoprocessed data into the main data table:
         main_listings_tbl.update_transformtbl(main_table.data)
-
-
-# Test:
-db_parms = {'host': 'localhost', 'user': 'Main_User', 'passwd': '', 'db_name': 're_listings_data'}
-test = pipeline('Waterloo_ON', 'https://www.kijiji.ca/b-house-for-sale/kitchener-waterloo/c35l1700212', db_parms)
-
-test.tbl_update(1, '64aec27dd2e34dfaa3b5296eed4acc20')
