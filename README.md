@@ -38,7 +38,7 @@ The raw data is stored in the SQL database in the following schema:
 | Text   | Text  |       Text     |      Text       | Text           | Text           |
 
 ## Transform
-Raw data stored in the SQL database extracted by the web data models is read from the database using the [MySQL database python object](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/RE_Listings_Pipeline/data_extraction/MySQL_database_connector.py) and input into the data transformation module. The main purpose of this data transformation is mainly standardization and geoprocessing. Using the geopy package a geoprocessor is used to correctly format the address data.
+Raw data stored in the SQL database extracted by the web data models is read from the database using the [MySQL database python object](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/RE_Listings_Pipeline/data_extraction_pkg/mySQL_database_connector.py) and input into the data transformation module. The main purpose of this data transformation is mainly standardization and geoprocessing. Using the geopy package a geoprocessor is used to correctly format the address data.
 
 The Geoprocessor, in this case powered by the OpenCage geolocator's api then converts the address to a tuple of (lattitude, longnitude). This data is then stored as a tuple in an additional column. The finaly data transformation converts data types away from strings to the following schema:
 
