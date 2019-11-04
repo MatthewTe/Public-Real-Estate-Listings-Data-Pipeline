@@ -8,7 +8,7 @@ The Pipeline is written mainly in python with packages such as MySQLdb being use
 The three main processes of this ETL pipeline are described below:
 - ### [Extract](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/README.md#extract-1)
 - ### [Transform](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/README.md#transform-1)
-- ### Load
+- ### [Load](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/README.md#load-1)
 
 ## Extract
 The extraction of raw RE listings data is done via the use of various web based data models that scrape their respective websites for listings data. A description of these data models can be found [here](https://github.com/MatthewTe/ETL-Data-Models). 
@@ -75,7 +75,10 @@ transform_tbl = MySQLdb(host, user, pswrd, db_name, table_name) # Creating new c
 transform_tbl.update_transformtbl(transformed_data)
 ```
 
+## Load
+The main script currently called pipeline.py ties together all of the methods from the data extraction and data transformation packagesin the project. It calls on these processes to continually updatae and maintain the database by extracting raw data, transforming said data and finally loading it into the main Real Estate listings database. The process flow diagram for the script pipeline.py can be found below:
 
+[Image Not Found](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/Process_flow_diagram.png)
 
 
 
