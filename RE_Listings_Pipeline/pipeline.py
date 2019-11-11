@@ -57,7 +57,8 @@ Price TEXT,\
 Date TEXT,\
 Bedrooms TEXT,\
 Bathrooms TEXT,\
-Size TEXT)".format(self.rawtbl_name)
+Size TEXT,\
+PRIMARY KEY (Address(255)))".format(self.rawtbl_name)
 
 
         # Creating curor object:
@@ -68,13 +69,14 @@ Size TEXT)".format(self.rawtbl_name)
 
         # Creating raw data table if none exists:
         createtbl_query = "CREATE TABLE IF NOT EXISTS {} (\
-Address TEXT,\
+Address VARCHAR(255),\
 Price FLOAT,\
 Date DATE,\
 Bedrooms FLOAT,\
 Bathrooms FLOAT,\
 Size FLOAT,\
-Coordinates TEXT)".format(self.maintbl_name)
+Coordinates TEXT,\
+PRIMARY KEY (Address(255)))".format(self.maintbl_name, self.rawtbl_name)
 
 
         # Executing command:
