@@ -13,7 +13,7 @@ The three main processes of this ETL pipeline are described below:
 ## Extract
 The extraction of raw RE listings data is done via the use of various web based data models that scrape their respective websites for listings data. A description of these data models can be found [here](https://github.com/MatthewTe/ETL-Data-Models). 
 
-Once data is scraped from the web, it is then input into a [MySQL database python object](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/RE_Listings_Pipeline/data_extraction/MySQL_database_connector.py) as a pandas dataframe. This dataframe is then processed to ensure that it only contains data that is unique to the SQL database and read into the appropriate MySQL table. The execution processes of collecting data from the web and storing it in an SQL table is as follows:
+Once data is scraped from the web, it is then input into a [MySQL database python object](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/RE_Listings_Pipeline/data_extraction_pkg/mySQL_database_connector.py) as a pandas dataframe. This dataframe is then processed to ensure that it only contains data that is unique to the SQL database and read into the appropriate MySQL table. The execution processes of collecting data from the web and storing it in an SQL table is as follows:
 
 ```python
 
@@ -38,7 +38,7 @@ The raw data is stored in the SQL database in the following schema:
 | Text   | Text  |       Text     |      Text       | Text           | Text           |
 
 ## Transform
-Raw data stored in the SQL database extracted by the web data models is read from the database using the [MySQL database python object](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/RE_Listings_Pipeline/data_extraction/MySQL_database_connector.py) and input into the data transformation module. The main purpose of this data transformation is mainly standardization and geoprocessing. Using the geopy package a geoprocessor is used to correctly format the address data.
+Raw data stored in the SQL database extracted by the web data models is read from the database using the [MySQL database python object](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/RE_Listings_Pipeline/data_extraction_pkg/mySQL_database_connector.py) and input into the data transformation module. The main purpose of this data transformation is mainly standardization and geoprocessing. Using the geopy package a geoprocessor is used to correctly format the address data.
 
 The Geoprocessor, in this case powered by the OpenCage geolocator's api then converts the address to a tuple of (lattitude, longnitude). This data is then stored as a tuple in an additional column. The finaly data transformation converts data types away from strings to the following schema:
 
@@ -78,7 +78,7 @@ transform_tbl.update_transformtbl(transformed_data)
 ## Load
 The main script currently called pipeline.py ties together all of the methods from the data extraction and data transformation packagesin the project. It calls on these processes to continually updatae and maintain the database by extracting raw data, transforming said data and finally loading it into the main Real Estate listings database. The process flow diagram for the script pipeline.py can be found below:
 
-[Image Not Found](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/Process_flow_diagram.png)
+![Image Not Found](https://github.com/MatthewTe/Public-Real-Estate-Listings-Data-Pipeline/blob/master/resources/Process_flow_diagram.png)
 
 
 
